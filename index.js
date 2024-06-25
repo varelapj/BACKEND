@@ -1,5 +1,5 @@
 
-
+const serverless = require("serverless-http");
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -49,3 +49,18 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto 'http://localhost:${PORT}'.`);
 });
+
+
+// YOUR_BASE_DIRECTORY/netlify/functions/api.ts
+
+import express, { Router } from "express";
+import serverless from "serverless-http";
+
+const api = express();
+
+const router = Router();
+router.get("/hello", (req, res) => res.send("Hello World!"));
+
+api.use("/api/", router);
+
+export const handler = serverless(app);
